@@ -60,7 +60,7 @@ def plot_monthly_usage(monthly_usage):
 
 # ## Fungsi utama untuk menjalankan aplikasi
 def main():
-    st.title("Analisis Penyewaan Sepeda")
+    st.title("Bike Sharing Analysis")
 
     # Tampilkan dataset mentah
     st.subheader("Dataset")
