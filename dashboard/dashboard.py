@@ -60,41 +60,35 @@ def plot_monthly_usage(monthly_usage):
 
 # ## Fungsi utama untuk menjalankan aplikasi
 def main():
-    st.title("Bike Sharing Analysis")
+    st.title("Analisis Penyewaan Sepeda")
 
     # Tampilkan dataset mentah
     st.subheader("Dataset")
 
     # Pilih antara dataset harian dan per jam
     dataset_choice = st.selectbox(
-        "Pilih Dataset", ["Harian (https://raw.githubusercontent.com/agusriyati/ProyekAnalisisDataDicoding_Agusriyati/refs/heads/main/dashboard/day.csv)", "Per Jam (https://raw.githubusercontent.com/agusriyati/ProyekAnalisisDataDicoding_Agusriyati/refs/heads/main/dashboard/hour.csv)"]
+        "Pilih Dataset", ["Harian", "Per Jam"]
     )
 
-    # Muat dataset langsung tanpa fungsi load_data
-    if dataset_choice == "Harian (https://raw.githubusercontent.com/agusriyati/ProyekAnalisisDataDicoding_Agusriyati/refs/heads/main/dashboard/day.csv)":
-        dataset_type = "day"
-        try:
-            bike_df = pd.read_csv("https://raw.githubusercontent.com/agusriyati/ProyekAnalisisDataDicoding_Agusriyati/refs/heads/main/dashboard/day.csv")
-        except FileNotFoundError:
-            st.error(
-                "File 'dashboard/https://raw.githubusercontent.com/agusriyati/ProyekAnalisisDataDicoding_Agusriyati/refs/heads/main/dashboard/day.csv' tidak ditemukan. Pastikan file ada di direktori yang benar."
-            )
-            return
-    else:
-        dataset_type = "hour"
-        try:
-            bike_df = pd.read_csv("https://raw.githubusercontent.com/agusriyati/ProyekAnalisisDataDicoding_Agusriyati/refs/heads/main/dashboard/hour.csv")
-        except FileNotFoundError:
-            st.error(
-                "File 'hour.csv' tidak ditemukan. Pastikan file ada di direktori yang benar."
-            )
-            return
+    # URL dataset
+    dataset_urls = {
+        "Harian": "https://raw.githubusercontent.com/agusriyati/ProyekAnalisisDataDicoding_Agusriyati/refs/heads/main/dashboard/day.csv",
+        "Per Jam": "https://raw.githubusercontent.com/agusriyati/ProyekAnalisisDataDicoding_Agusriyati/refs/heads/main/dashboard/hour.csv"
+    }
+
+    # Muat dataset berdasarkan pilihan
+    dataset_type = "day" if dataset_choice == "Harian" else "hour"
+    try:
+        bike_df = pd.read_csv(dataset_urls[dataset_choice])
+    except Exception as e:
+        st.error(f"Terjadi kesalahan saat memuat dataset: {e}")
+        return
 
     # Bersihkan data berdasarkan tipe dataset
     bike_df = clean_data(bike_df, dataset_type)
 
     st.write(f"Ini adalah dataset penyewaan sepeda {dataset_type}:")
-    st.dataframe(bike_df)  # Tampilkan seluruh dataset tanpa .head()
+    st.dataframe(bike_df)  # Tampilkan seluruh dataset
 
     # Analisis data, simpan di session_state agar tidak dihitung ulang
     if "avg_casual" not in st.session_state:
