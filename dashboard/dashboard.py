@@ -67,7 +67,7 @@ def main():
 
     # Pilih antara dataset harian dan per jam
     dataset_choice = st.selectbox(
-        "Pilih Dataset", ["Harian (dashboard/day.csv)", "Per Jam (hour.csv)"]
+        "Pilih Dataset", ["Harian (dashboard/day.csv)", "Per Jam (dashboard/hour.csv)"]
     )
 
     # Muat dataset langsung tanpa fungsi load_data
@@ -83,7 +83,7 @@ def main():
     else:
         dataset_type = "hour"
         try:
-            bike_df = pd.read_csv("hour.csv")
+            bike_df = pd.read_csv("dashboard/hour.csv")
         except FileNotFoundError:
             st.error(
                 "File 'hour.csv' tidak ditemukan. Pastikan file ada di direktori yang benar."
