@@ -67,17 +67,17 @@ def main():
 
     # Pilih antara dataset harian dan per jam
     dataset_choice = st.selectbox(
-        "Pilih Dataset", ["Harian (dashboard/day.csv)", "Per Jam (dashboard/hour.csv)"]
+        "Pilih Dataset", ["Harian (https://raw.githubusercontent.com/agusriyati/ProyekAnalisisDataDicoding_Agusriyati/refs/heads/main/dashboard/day.csv)", "Per Jam (dashboard/hour.csv)"]
     )
 
     # Muat dataset langsung tanpa fungsi load_data
-    if dataset_choice == "Harian (dashboard/day.csv)":
+    if dataset_choice == "Harian (https://raw.githubusercontent.com/agusriyati/ProyekAnalisisDataDicoding_Agusriyati/refs/heads/main/dashboard/day.csv)":
         dataset_type = "day"
         try:
-            bike_df = pd.read_csv("dashboard/day.csv")
+            bike_df = pd.read_csv("https://raw.githubusercontent.com/agusriyati/ProyekAnalisisDataDicoding_Agusriyati/refs/heads/main/dashboard/day.csv")
         except FileNotFoundError:
             st.error(
-                "File 'dashboard/day.csv' tidak ditemukan. Pastikan file ada di direktori yang benar."
+                "File 'dashboard/https://raw.githubusercontent.com/agusriyati/ProyekAnalisisDataDicoding_Agusriyati/refs/heads/main/dashboard/day.csv' tidak ditemukan. Pastikan file ada di direktori yang benar."
             )
             return
     else:
